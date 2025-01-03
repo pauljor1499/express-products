@@ -1,6 +1,7 @@
 const express = require("express");
+const cors = require("cors");
 const dotenv = require("dotenv");
-const { swaggerUi, swaggerSpec } = require("./swagger");
+const { swaggerUi, swaggerSpec } = require("./swagger/config");
 const booksRoutes = require("./routes/books");
 const connectDB = require("./config/database");
 
@@ -9,12 +10,13 @@ const app = express();
 
 // Middleware
 app.use(express.json()); // Parse incoming JSON payloads
+app.use(cors());
 
 // Create a new router instance
 const router = express.Router();
 
 // Define a simple route for the root
-router.get("/", (req, res) => {
+router.get("/", (_, res) => {
     res.send("Server is up and running!");
 });
 
